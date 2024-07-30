@@ -8,9 +8,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/babylonchain/babylon/btcstaking"
-	"github.com/babylonchain/networks/parameters/parser"
-	queuecli "github.com/babylonchain/staking-queue-client/client"
+	"github.com/babylonlabs-io/babylon/btcstaking"
+	"github.com/babylonlabs-io/networks/parameters/parser"
+	queuecli "github.com/babylonlabs-io/staking-queue-client/client"
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/btcsuite/btcd/btcec/v2/schnorr"
 	"github.com/btcsuite/btcd/btcutil"
@@ -19,11 +19,11 @@ import (
 	"github.com/lightningnetwork/lnd/kvdb"
 	"go.uber.org/zap"
 
-	"github.com/babylonchain/staking-indexer/btcscanner"
-	"github.com/babylonchain/staking-indexer/config"
-	"github.com/babylonchain/staking-indexer/consumer"
-	"github.com/babylonchain/staking-indexer/indexerstore"
-	"github.com/babylonchain/staking-indexer/types"
+	"github.com/babylonlabs-io/staking-indexer/btcscanner"
+	"github.com/babylonlabs-io/staking-indexer/config"
+	"github.com/babylonlabs-io/staking-indexer/consumer"
+	"github.com/babylonlabs-io/staking-indexer/indexerstore"
+	"github.com/babylonlabs-io/staking-indexer/types"
 )
 
 type StakingIndexer struct {

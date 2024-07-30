@@ -6,7 +6,7 @@ import (
 	notifier "github.com/lightningnetwork/lnd/chainntnfs"
 	"go.uber.org/zap"
 
-	"github.com/babylonchain/staking-indexer/types"
+	"github.com/babylonlabs-io/staking-indexer/types"
 )
 
 // blockEventLoop handles new blocks from the BTC client upon new block event

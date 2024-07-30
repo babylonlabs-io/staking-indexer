@@ -1,7 +1,7 @@
 package params
 
 import (
-	"github.com/babylonchain/networks/parameters/parser"
+	"github.com/babylonlabs-io/networks/parameters/parser"
 )
 
 type ParamsRetriever interface {

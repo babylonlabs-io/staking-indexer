@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   staking-indexer:
-    image: babylonchain/staking-indexer:latest
+    image: babylonlabs-io/staking-indexer:latest
     container_name: staking-indexer
     environment:
       - CONFIG=/home/staking-indexer/.sid/sid.conf
@@ -26,7 +26,7 @@ services:
     volumes:
       - "../rabbitmq_data:/var/lib/rabbitmq"
   bitcoindsim:
-    image: babylonchain/bitcoindsim:latest
+    image: babylonlabs-io/bitcoindsim:latest
     platform: linux/amd64
     container_name: bitcoindsim
     # networks:

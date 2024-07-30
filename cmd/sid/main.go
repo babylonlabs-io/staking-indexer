@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	sidcli "github.com/babylonchain/staking-indexer/cmd/sid/cli"
+	sidcli "github.com/babylonlabs-io/staking-indexer/cmd/sid/cli"
 	"github.com/urfave/cli"
 )
 

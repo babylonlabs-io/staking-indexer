@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package proto;
 
-option go_package = "github.com/babylonchain/staking-indexer/proto";
+option go_package = "github.com/babylonlabs-io/staking-indexer/proto";
 
 message StakingTransaction {
     // transaction_bytes is the full tx data

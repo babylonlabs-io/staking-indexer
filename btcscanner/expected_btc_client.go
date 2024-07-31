@@ -1,7 +1,7 @@
 package btcscanner
 
 import (
-	"github.com/babylonchain/staking-indexer/types"
+	"github.com/babylonlabs-io/staking-indexer/types"
 	"github.com/btcsuite/btcd/wire"
 )
 

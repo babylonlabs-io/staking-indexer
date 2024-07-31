@@ -7,7 +7,7 @@ package mocks
 import (
 	reflect "reflect"
 
-	client "github.com/babylonchain/staking-queue-client/client"
+	client "github.com/babylonlabs-io/staking-queue-client/client"
 	gomock "github.com/golang/mock/gomock"
 )
 

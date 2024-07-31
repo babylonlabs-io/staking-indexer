@@ -12,7 +12,7 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
-	"github.com/babylonchain/staking-indexer/utils"
+	"github.com/babylonlabs-io/staking-indexer/utils"
 )
 
 func NewRootLogger(format string, level string, w io.Writer) (*zap.Logger, error) {

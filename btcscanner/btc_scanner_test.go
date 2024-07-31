@@ -5,17 +5,17 @@ import (
 	"sync"
 	"testing"
 
-	bbndatagen "github.com/babylonchain/babylon/testutil/datagen"
+	bbndatagen "github.com/babylonlabs-io/babylon/testutil/datagen"
 	"github.com/golang/mock/gomock"
 	"github.com/lightningnetwork/lnd/chainntnfs"
 	"github.com/lightningnetwork/lnd/lntest/mock"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 
-	"github.com/babylonchain/staking-indexer/btcscanner"
-	"github.com/babylonchain/staking-indexer/testutils/datagen"
-	"github.com/babylonchain/staking-indexer/testutils/mocks"
-	"github.com/babylonchain/staking-indexer/types"
+	"github.com/babylonlabs-io/staking-indexer/btcscanner"
+	"github.com/babylonlabs-io/staking-indexer/testutils/datagen"
+	"github.com/babylonlabs-io/staking-indexer/testutils/mocks"
+	"github.com/babylonlabs-io/staking-indexer/types"
 )
 
 // FuzzBootstrap tests happy path of bootstrapping

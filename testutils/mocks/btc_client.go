@@ -7,7 +7,7 @@ package mocks
 import (
 	reflect "reflect"
 
-	types "github.com/babylonchain/staking-indexer/types"
+	types "github.com/babylonlabs-io/staking-indexer/types"
 	wire "github.com/btcsuite/btcd/wire"
 	gomock "github.com/golang/mock/gomock"
 )

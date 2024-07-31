@@ -11,7 +11,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/babylonchain/staking-indexer/itest/containers"
+	"github.com/babylonlabs-io/staking-indexer/itest/containers"
 )
 
 var (

@@ -1,7 +1,7 @@
 package consumer
 
 import (
-	"github.com/babylonchain/staking-queue-client/client"
+	"github.com/babylonlabs-io/staking-queue-client/client"
 )
 
 type EventConsumer interface {

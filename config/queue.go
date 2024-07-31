@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	clicfg "github.com/babylonchain/staking-queue-client/config"
+	clicfg "github.com/babylonlabs-io/staking-queue-client/config"
 )
 
 const (

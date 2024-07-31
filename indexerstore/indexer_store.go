@@ -13,8 +13,8 @@ import (
 	"github.com/lightningnetwork/lnd/kvdb"
 	pm "google.golang.org/protobuf/proto"
 
-	"github.com/babylonchain/staking-indexer/proto"
-	"github.com/babylonchain/staking-indexer/utils"
+	"github.com/babylonlabs-io/staking-indexer/proto"
+	"github.com/babylonlabs-io/staking-indexer/utils"
 )
 
 var (

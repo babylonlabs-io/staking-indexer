@@ -7,8 +7,8 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/babylonchain/babylon/btcstaking"
-	"github.com/babylonchain/networks/parameters/parser"
+	"github.com/babylonlabs-io/babylon/btcstaking"
+	"github.com/babylonlabs-io/networks/parameters/parser"
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/btcsuite/btcd/btcec/v2/schnorr"
 	"github.com/btcsuite/btcd/btcjson"
@@ -22,7 +22,7 @@ import (
 	"github.com/lightningnetwork/lnd/kvdb"
 	"github.com/stretchr/testify/require"
 
-	"github.com/babylonchain/staking-indexer/config"
+	"github.com/babylonlabs-io/staking-indexer/config"
 )
 
 type Utxo struct {
@@ -86,7 +86,7 @@ func PubKeysSliceEqual(pk1, pk2 []*btcec.PublicKey) bool {
 }
 
 // Adapted from
-// https://github.com/babylonchain/btc-staker/blob/eb72d300bc263706a72e459ea975abfa0467f2dc/walletcontroller/client.go#L148
+// https://github.com/babylonlabs-io/btc-staker/blob/eb72d300bc263706a72e459ea975abfa0467f2dc/walletcontroller/client.go#L148
 func CreateTxFromOutputsAndSign(
 	btcClient *rpcclient.Client,
 	outputs []*wire.TxOut,

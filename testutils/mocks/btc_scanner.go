@@ -7,7 +7,7 @@ package mocks
 import (
 	reflect "reflect"
 
-	btcscanner "github.com/babylonchain/staking-indexer/btcscanner"
+	btcscanner "github.com/babylonlabs-io/staking-indexer/btcscanner"
 	gomock "github.com/golang/mock/gomock"
 )
 

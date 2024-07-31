@@ -9,9 +9,9 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	"go.uber.org/zap"
 
-	"github.com/babylonchain/staking-indexer/config"
-	"github.com/babylonchain/staking-indexer/types"
-	"github.com/babylonchain/staking-indexer/utils"
+	"github.com/babylonlabs-io/staking-indexer/config"
+	"github.com/babylonlabs-io/staking-indexer/types"
+	"github.com/babylonlabs-io/staking-indexer/utils"
 )
 
 type BTCClient struct {

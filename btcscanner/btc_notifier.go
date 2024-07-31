@@ -10,7 +10,7 @@ import (
 	"github.com/lightningnetwork/lnd/chainntnfs"
 	"github.com/lightningnetwork/lnd/chainntnfs/bitcoindnotify"
 
-	"github.com/babylonchain/staking-indexer/config"
+	"github.com/babylonlabs-io/staking-indexer/config"
 )
 
 type BTCNotifier struct {

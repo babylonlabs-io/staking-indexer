@@ -5,13 +5,13 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/babylonchain/staking-queue-client/client"
-	"github.com/babylonchain/staking-queue-client/queuemngr"
+	"github.com/babylonlabs-io/staking-queue-client/client"
+	"github.com/babylonlabs-io/staking-queue-client/queuemngr"
 	"github.com/rabbitmq/amqp091-go"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 
-	"github.com/babylonchain/staking-indexer/config"
+	"github.com/babylonlabs-io/staking-indexer/config"
 )
 
 func setupTestQueueConsumer(t *testing.T, cfg *config.QueueConfig) (*queuemngr.QueueManager, error) {

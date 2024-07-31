@@ -18,7 +18,7 @@ The Bitcoin Staking protocol considers two types of transactions relevant to sta
   being lower than the one in the staking script and slashing.
 
 More details on the Bitcoin Staking transactions and scripts can be found in
-this [reference](https://github.com/babylonchain/babylon/blob/v0.8.5/docs/staking-script.md).
+this [reference](https://github.com/babylonlabs-io/babylon/blob/v0.8.5/docs/staking-script.md).
 
 ### Staking Parameters
 

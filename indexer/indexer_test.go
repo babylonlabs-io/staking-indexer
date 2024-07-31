@@ -8,9 +8,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/babylonchain/babylon/btcstaking"
-	bbndatagen "github.com/babylonchain/babylon/testutil/datagen"
-	"github.com/babylonchain/networks/parameters/parser"
+	"github.com/babylonlabs-io/babylon/btcstaking"
+	bbndatagen "github.com/babylonlabs-io/babylon/testutil/datagen"
+	"github.com/babylonlabs-io/networks/parameters/parser"
 	"github.com/btcsuite/btcd/btcutil"
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
 	"github.com/btcsuite/btcd/wire"
@@ -18,20 +18,14 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 
-	"github.com/babylonchain/staking-indexer/btcscanner"
-	"github.com/babylonchain/staking-indexer/config"
-	"github.com/babylonchain/staking-indexer/indexer"
-	"github.com/babylonchain/staking-indexer/testutils"
-	"github.com/babylonchain/staking-indexer/testutils/datagen"
-	"github.com/babylonchain/staking-indexer/testutils/mocks"
-	"github.com/babylonchain/staking-indexer/types"
+	"github.com/babylonlabs-io/staking-indexer/btcscanner"
+	"github.com/babylonlabs-io/staking-indexer/config"
+	"github.com/babylonlabs-io/staking-indexer/indexer"
+	"github.com/babylonlabs-io/staking-indexer/testutils"
+	"github.com/babylonlabs-io/staking-indexer/testutils/datagen"
+	"github.com/babylonlabs-io/staking-indexer/testutils/mocks"
+	"github.com/babylonlabs-io/staking-indexer/types"
 )
-
-type StakingTxData struct {
-	StakingTx   *btcutil.Tx
-	StakingData *datagen.TestStakingData
-	Unbonded    bool
-}
 
 type StakingEvent struct {
 	StakingTx     *btcutil.Tx
@@ -580,7 +574,7 @@ func getParsedStakingData(data *datagen.TestStakingData, tx *wire.MsgTx, params 
 		OpReturnOutput:    tx.TxOut[1],
 		OpReturnOutputIdx: 1,
 		OpReturnData: &btcstaking.V0OpReturnData{
-			MagicBytes:                params.Tag,
+			Tag:                       params.Tag,
 			Version:                   0,
 			StakerPublicKey:           &btcstaking.XonlyPubKey{PubKey: data.StakerKey},
 			FinalityProviderPublicKey: &btcstaking.XonlyPubKey{PubKey: data.FinalityProviderKey},

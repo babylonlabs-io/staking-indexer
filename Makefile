@@ -44,7 +44,7 @@ $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)/
 
 build-docker:
-	$(DOCKER) build --tag babylonchain/staking-indexer -f Dockerfile \
+	$(DOCKER) build --tag babylonlabs-io/staking-indexer -f Dockerfile \
 		$(shell git rev-parse --show-toplevel)
 
 .PHONY: build build-docker

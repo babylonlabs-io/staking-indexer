@@ -36,7 +36,7 @@ func FuzzBtcHeaders(f *testing.F) {
 				Return(idxBlock.Header, nil).AnyTimes()
 		}
 
-		infos, err := cli.BtcHeaderInfoList(mockBtcClient, startHeight, endHeight, false)
+		infos, err := cli.BtcHeaderInfoList(mockBtcClient, startHeight, endHeight, true)
 		require.NoError(t, err)
 		require.EqualValues(t, len(infos), numBlocks)
 
@@ -45,7 +45,6 @@ func FuzzBtcHeaders(f *testing.F) {
 			headerBytes := babylontypes.NewBTCHeaderBytesFromBlockHeader(idxBlock.Header)
 			require.Equal(t, info.Header, &headerBytes)
 			require.EqualValues(t, info.Height, idxBlock.Height)
-			require.EqualValues(t, info.Hash, headerBytes.Hash())
 		}
 	})
 }

@@ -16,13 +16,11 @@ import (
 	"github.com/babylonchain/staking-indexer/utils"
 	"github.com/urfave/cli"
 	"go.uber.org/zap"
-
-	sdkmath "cosmossdk.io/math"
 )
 
 const (
 	outputFileFlag        = "output"
-	onlyHeaderBytesFlag   = "only-header-bytes"
+	withHeightFlag        = "with-height"
 	defaultOutputFileName = "btc-headers.json"
 )
 
@@ -47,8 +45,8 @@ var BtcHeaderCommand = cli.Command{
 			Value: filepath.Join(config.DefaultHomeDir, defaultOutputFileName),
 		},
 		cli.BoolFlag{
-			Name:  onlyHeaderBytesFlag,
-			Usage: "If it only fills the BTCHeaderBytes for each block header",
+			Name:  withHeightFlag,
+			Usage: "If it should fill the BTC block height property",
 		},
 	},
 	Action: btcHeaders,
@@ -99,7 +97,7 @@ func btcHeaders(ctx *cli.Context) error {
 		return fmt.Errorf("failed to initialize the BTC client: %w", err)
 	}
 
-	btcHeaders, err := BtcHeaderInfoList(btcClient, fromBlock, toBlock, ctx.Bool(onlyHeaderBytesFlag))
+	btcHeaders, err := BtcHeaderInfoList(btcClient, fromBlock, toBlock, ctx.Bool(withHeightFlag))
 	if err != nil {
 		return fmt.Errorf("failed to get BTC headers: %w", err)
 	}
@@ -128,9 +126,8 @@ func btcHeaders(ctx *cli.Context) error {
 }
 
 // BtcHeaderInfoList queries the btc client for (fromBlk ~ toBlk) BTC blocks, converting to BTCHeaderInfo.
-func BtcHeaderInfoList(btcClient btcscanner.Client, fromBlk, toBlk uint64, onlyHeader bool) ([]*bbnbtclightclienttypes.BTCHeaderInfo, error) {
+func BtcHeaderInfoList(btcClient btcscanner.Client, fromBlk, toBlk uint64, withHeight bool) ([]*bbnbtclightclienttypes.BTCHeaderInfo, error) {
 	btcHeaders := make([]*bbnbtclightclienttypes.BTCHeaderInfo, 0, toBlk-fromBlk+1)
-	var currentWork = sdkmath.ZeroUint()
 
 	for blkHeight := fromBlk; blkHeight <= toBlk; blkHeight++ {
 		blkHeader, err := btcClient.GetBlockHeaderByHeight(blkHeight)
@@ -143,16 +140,9 @@ func BtcHeaderInfoList(btcClient btcscanner.Client, fromBlk, toBlk uint64, onlyH
 			Header: &headerBytes,
 		}
 
-		if onlyHeader {
-			btcHeaders = append(btcHeaders, info)
-			continue
+		if withHeight {
+			info.Height = blkHeight
 		}
-		headerWork := bbnbtclightclienttypes.CalcHeaderWork(blkHeader)
-		currentWork = bbnbtclightclienttypes.CumulativeWork(headerWork, currentWork)
-
-		info.Hash = headerBytes.Hash()
-		info.Height = blkHeight
-		info.Work = &currentWork
 
 		btcHeaders = append(btcHeaders, info)
 	}

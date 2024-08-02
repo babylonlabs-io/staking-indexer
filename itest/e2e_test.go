@@ -12,7 +12,6 @@ import (
 
 	"github.com/babylonchain/babylon/btcstaking"
 	bbndatagen "github.com/babylonchain/babylon/testutil/datagen"
-	bbnbtclightclienttypes "github.com/babylonchain/babylon/x/btclightclient/types"
 	queuecli "github.com/babylonchain/staking-queue-client/client"
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/btcsuite/btcd/btcutil"
@@ -638,19 +637,14 @@ func TestTimeBasedCap(t *testing.T) {
 func TestBtcHeaders(t *testing.T) {
 	r := rand.New(rand.NewSource(10))
 	blocksPerRetarget := 2016
-	genState := bbnbtclightclienttypes.DefaultGenesis()
 
 	initBlocksQnt := r.Intn(15) + blocksPerRetarget
 	btcd, btcClient := StartBtcClientAndBtcHandler(t, initBlocksQnt)
 
 	// from zero height
-	infos, err := cli.BtcHeaderInfoList(btcClient, 0, uint64(initBlocksQnt), false)
+	infos, err := cli.BtcHeaderInfoList(btcClient, 0, uint64(initBlocksQnt), true)
 	require.NoError(t, err)
 	require.Equal(t, len(infos), initBlocksQnt+1)
-
-	// should be valid on genesis, start from zero height.
-	genState.BtcHeaders = infos
-	require.NoError(t, genState.Validate())
 
 	generatedBlocksQnt := r.Intn(15) + 2
 	btcd.GenerateBlocks(generatedBlocksQnt)
@@ -660,22 +654,15 @@ func TestBtcHeaders(t *testing.T) {
 	fromBlockHeight := blocksPerRetarget - 1
 	toBlockHeight := totalBlks - 2
 
-	infos, err = cli.BtcHeaderInfoList(btcClient, uint64(fromBlockHeight), uint64(toBlockHeight), false)
+	infos, err = cli.BtcHeaderInfoList(btcClient, uint64(fromBlockHeight), uint64(toBlockHeight), true)
 	require.NoError(t, err)
 	require.Equal(t, len(infos), int(toBlockHeight-fromBlockHeight)+1)
-
-	// try to check if it is valid on genesis, should fail is not retarget block.
-	genState.BtcHeaders = infos
-	require.EqualError(t, genState.Validate(), "genesis block must be a difficulty adjustment block")
+	require.EqualValues(t, infos[len(infos)-1].Height, uint64(toBlockHeight))
 
 	// from retarget block
-	infos, err = cli.BtcHeaderInfoList(btcClient, uint64(blocksPerRetarget), uint64(totalBlks), false)
+	infos, err = cli.BtcHeaderInfoList(btcClient, uint64(blocksPerRetarget), uint64(totalBlks), true)
 	require.NoError(t, err)
 	require.Equal(t, len(infos), int(totalBlks-blocksPerRetarget)+1)
-
-	// check if it is valid on genesis
-	genState.BtcHeaders = infos
-	require.NoError(t, genState.Validate())
 }
 
 func getCovenantPrivKeys(t *testing.T) []*btcec.PrivateKey {

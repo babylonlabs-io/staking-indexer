@@ -4,18 +4,18 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/babylonchain/staking-queue-client/queuemngr"
+	"github.com/babylonlabs-io/staking-queue-client/queuemngr"
 	"github.com/lightningnetwork/lnd/signal"
 	"github.com/urfave/cli"
 
-	"github.com/babylonchain/staking-indexer/btcclient"
-	"github.com/babylonchain/staking-indexer/btcscanner"
-	"github.com/babylonchain/staking-indexer/config"
-	"github.com/babylonchain/staking-indexer/indexer"
-	"github.com/babylonchain/staking-indexer/log"
-	"github.com/babylonchain/staking-indexer/params"
-	service "github.com/babylonchain/staking-indexer/server"
-	"github.com/babylonchain/staking-indexer/utils"
+	"github.com/babylonlabs-io/staking-indexer/btcclient"
+	"github.com/babylonlabs-io/staking-indexer/btcscanner"
+	"github.com/babylonlabs-io/staking-indexer/config"
+	"github.com/babylonlabs-io/staking-indexer/indexer"
+	"github.com/babylonlabs-io/staking-indexer/log"
+	"github.com/babylonlabs-io/staking-indexer/params"
+	service "github.com/babylonlabs-io/staking-indexer/server"
+	"github.com/babylonlabs-io/staking-indexer/utils"
 )
 
 const (

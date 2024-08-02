@@ -4,9 +4,9 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/babylonchain/babylon/btcstaking"
-	bbndatagen "github.com/babylonchain/babylon/testutil/datagen"
-	"github.com/babylonchain/networks/parameters/parser"
+	"github.com/babylonlabs-io/babylon/btcstaking"
+	bbndatagen "github.com/babylonlabs-io/babylon/testutil/datagen"
+	"github.com/babylonlabs-io/networks/parameters/parser"
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/btcsuite/btcd/btcutil"
 	"github.com/btcsuite/btcd/chaincfg"
@@ -14,7 +14,7 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	"github.com/stretchr/testify/require"
 
-	"github.com/babylonchain/staking-indexer/indexerstore"
+	"github.com/babylonlabs-io/staking-indexer/indexerstore"
 )
 
 type TestStakingData struct {

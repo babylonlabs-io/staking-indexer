@@ -4,15 +4,15 @@ import (
 	"math/big"
 	"math/rand"
 
-	"github.com/babylonchain/babylon/testutil/datagen"
-	bbntypes "github.com/babylonchain/babylon/types"
+	"github.com/babylonlabs-io/babylon/testutil/datagen"
+	bbntypes "github.com/babylonlabs-io/babylon/types"
 	"github.com/btcsuite/btcd/blockchain"
 	"github.com/btcsuite/btcd/btcutil"
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
 	"github.com/btcsuite/btcd/wire"
 
-	"github.com/babylonchain/staking-indexer/types"
+	"github.com/babylonlabs-io/staking-indexer/types"
 )
 
 func GenRandomBlock(r *rand.Rand, prevHash *chainhash.Hash) *wire.MsgBlock {

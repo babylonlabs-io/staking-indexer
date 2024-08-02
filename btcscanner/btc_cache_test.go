@@ -5,11 +5,11 @@ import (
 	"math/rand"
 	"testing"
 
-	bbndatagen "github.com/babylonchain/babylon/testutil/datagen"
+	bbndatagen "github.com/babylonlabs-io/babylon/testutil/datagen"
 	"github.com/stretchr/testify/require"
 
-	"github.com/babylonchain/staking-indexer/btcscanner"
-	"github.com/babylonchain/staking-indexer/testutils/datagen"
+	"github.com/babylonlabs-io/staking-indexer/btcscanner"
+	"github.com/babylonlabs-io/staking-indexer/testutils/datagen"
 )
 
 // FuzzBtcCache fuzzes the BtcCache type

@@ -5,12 +5,12 @@ import (
 	"testing"
 	"time"
 
-	bbndatagen "github.com/babylonchain/babylon/testutil/datagen"
+	bbndatagen "github.com/babylonlabs-io/babylon/testutil/datagen"
 	"github.com/stretchr/testify/require"
 
-	"github.com/babylonchain/staking-indexer/indexerstore"
-	"github.com/babylonchain/staking-indexer/testutils"
-	"github.com/babylonchain/staking-indexer/testutils/datagen"
+	"github.com/babylonlabs-io/staking-indexer/indexerstore"
+	"github.com/babylonlabs-io/staking-indexer/testutils"
+	"github.com/babylonlabs-io/staking-indexer/testutils/datagen"
 )
 
 func TestEmptyStore(t *testing.T) {

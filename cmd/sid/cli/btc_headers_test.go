@@ -4,12 +4,12 @@ import (
 	"math/rand"
 	"testing"
 
-	bbndatagen "github.com/babylonchain/babylon/testutil/datagen"
-	babylontypes "github.com/babylonchain/babylon/types"
+	bbndatagen "github.com/babylonlabs-io/babylon/testutil/datagen"
+	babylontypes "github.com/babylonlabs-io/babylon/types"
 
-	"github.com/babylonchain/staking-indexer/cmd/sid/cli"
-	"github.com/babylonchain/staking-indexer/testutils/datagen"
-	"github.com/babylonchain/staking-indexer/testutils/mocks"
+	"github.com/babylonlabs-io/staking-indexer/cmd/sid/cli"
+	"github.com/babylonlabs-io/staking-indexer/testutils/datagen"
+	"github.com/babylonlabs-io/staking-indexer/testutils/mocks"
 
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"

@@ -16,14 +16,17 @@ import (
 	"github.com/babylonlabs-io/staking-indexer/utils"
 	"github.com/urfave/cli"
 	"go.uber.org/zap"
-
-	sdkmath "cosmossdk.io/math"
 )
 
 const (
 	outputFileFlag        = "output"
+	withHeightFlag        = "with-height"
 	defaultOutputFileName = "btc-headers.json"
 )
+
+type HeadersState struct {
+	BtcHeaders []*bbnbtclightclienttypes.BTCHeaderInfo `json:"btc_headers,omitempty"`
+}
 
 var BtcHeaderCommand = cli.Command{
 	Name:        "btc-headers",
@@ -40,6 +43,10 @@ var BtcHeaderCommand = cli.Command{
 			Name:  outputFileFlag,
 			Usage: "The path to the output file",
 			Value: filepath.Join(config.DefaultHomeDir, defaultOutputFileName),
+		},
+		cli.BoolFlag{
+			Name:  withHeightFlag,
+			Usage: "If it should fill the BTC block height property",
 		},
 	},
 	Action: btcHeaders,
@@ -90,18 +97,18 @@ func btcHeaders(ctx *cli.Context) error {
 		return fmt.Errorf("failed to initialize the BTC client: %w", err)
 	}
 
-	btcHeaders, err := BtcHeaderInfoList(btcClient, fromBlock, toBlock)
+	btcHeaders, err := BtcHeaderInfoList(btcClient, fromBlock, toBlock, ctx.Bool(withHeightFlag))
 	if err != nil {
 		return fmt.Errorf("failed to get BTC headers: %w", err)
 	}
 
-	genState := bbnbtclightclienttypes.GenesisState{
+	headersState := HeadersState{
 		BtcHeaders: btcHeaders,
 	}
 
-	bz, err := json.MarshalIndent(genState, "", "  ")
+	bz, err := json.MarshalIndent(headersState, "", "  ")
 	if err != nil {
-		return fmt.Errorf("failed to generate json to set to output file %+v: %w", genState, err)
+		return fmt.Errorf("failed to generate json to set to output file %+v: %w", headersState, err)
 	}
 
 	outputFilePath := ctx.String(outputFileFlag)
@@ -119,9 +126,8 @@ func btcHeaders(ctx *cli.Context) error {
 }
 
 // BtcHeaderInfoList queries the btc client for (fromBlk ~ toBlk) BTC blocks, converting to BTCHeaderInfo.
-func BtcHeaderInfoList(btcClient btcscanner.Client, fromBlk, toBlk uint64) ([]*bbnbtclightclienttypes.BTCHeaderInfo, error) {
+func BtcHeaderInfoList(btcClient btcscanner.Client, fromBlk, toBlk uint64, withHeight bool) ([]*bbnbtclightclienttypes.BTCHeaderInfo, error) {
 	btcHeaders := make([]*bbnbtclightclienttypes.BTCHeaderInfo, 0, toBlk-fromBlk+1)
-	var currenWork = sdkmath.ZeroUint()
 
 	for blkHeight := fromBlk; blkHeight <= toBlk; blkHeight++ {
 		blkHeader, err := btcClient.GetBlockHeaderByHeight(blkHeight)
@@ -129,13 +135,16 @@ func BtcHeaderInfoList(btcClient btcscanner.Client, fromBlk, toBlk uint64) ([]*b
 			return nil, fmt.Errorf("failed to get block height %d from BTC client: %w", blkHeight, err)
 		}
 
-		headerWork := bbnbtclightclienttypes.CalcHeaderWork(blkHeader)
-		currenWork = bbnbtclightclienttypes.CumulativeWork(headerWork, currenWork)
-
 		headerBytes := babylontypes.NewBTCHeaderBytesFromBlockHeader(blkHeader)
+		info := &bbnbtclightclienttypes.BTCHeaderInfo{
+			Header: &headerBytes,
+		}
 
-		bbnBtcHeaderInfo := bbnbtclightclienttypes.NewBTCHeaderInfo(&headerBytes, headerBytes.Hash(), blkHeight, &currenWork)
-		btcHeaders = append(btcHeaders, bbnBtcHeaderInfo)
+		if withHeight {
+			info.Height = blkHeight
+		}
+
+		btcHeaders = append(btcHeaders, info)
 	}
 	return btcHeaders, nil
 }

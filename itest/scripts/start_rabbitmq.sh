@@ -7,5 +7,5 @@ if [ $(docker ps -q -f name=^/${RABBITMQ_CONTAINER_NAME}$) ]; then
 else
     echo "Starting RabbitMQ"
     # Start RabbitMQ
-    docker-compose up -d rabbitmq
+    docker compose up -d rabbitmq
 fi

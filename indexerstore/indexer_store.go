@@ -3,6 +3,7 @@ package indexerstore
 import (
 	"bytes"
 	"encoding/binary"
+	"encoding/hex"
 	"errors"
 	"fmt"
 
@@ -44,6 +45,14 @@ type StoredStakingTransaction struct {
 	FinalityProviderPk *btcec.PublicKey
 	IsOverflow         bool
 	StakingValue       uint64
+}
+
+type StakingTxInfo struct {
+	StakingHashHex  string `json:"staking_hash_hex"`
+	StakerPkHex     string `json:"staker_pk_hex"`
+	StakingValue    int64  `json:"staking_value"`
+	InclusionHeight int64  `json:"inclusion_height"`
+	IsOverflow      bool   `json:"is_overflow"`
 }
 
 type StoredUnbondingTransaction struct {
@@ -189,6 +198,51 @@ func (is *IndexerStore) GetStakingTransaction(txHash *chainhash.Hash) (*StoredSt
 	}
 
 	return storedTx, nil
+}
+
+func (is *IndexerStore) DumpStakingTransactions() ([]*StakingTxInfo, error) {
+	var stakingTxs []*StakingTxInfo
+
+	err := is.db.View(func(tx kvdb.RTx) error {
+		txBucket := tx.ReadBucket(stakingTxBucketName)
+		if txBucket == nil {
+			return ErrCorruptedTransactionsDb
+		}
+
+		c := txBucket.ReadCursor()
+
+		for k, v := c.First(); k != nil; k, v = c.Next() {
+			var storedTxProto proto.StakingTransaction
+			if err := pm.Unmarshal(v, &storedTxProto); err != nil {
+				return ErrCorruptedTransactionsDb
+			}
+
+			txFromDb, convertionErr := protoStakingTxToStoredStakingTx(&storedTxProto)
+			if convertionErr != nil {
+				return convertionErr
+			}
+
+			stakingTxInfo := &StakingTxInfo{
+				StakingHashHex:  txFromDb.Tx.TxHash().String(),
+				StakerPkHex:     hex.EncodeToString(schnorr.SerializePubKey(txFromDb.StakerPk)),
+				StakingValue:    int64(txFromDb.StakingValue),
+				InclusionHeight: int64(txFromDb.InclusionHeight),
+				IsOverflow:      txFromDb.IsOverflow,
+			}
+
+			stakingTxs = append(stakingTxs, stakingTxInfo)
+		}
+
+		return nil
+	}, func() {})
+
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Printf("staking txs number: %d\n", len(stakingTxs))
+
+	return stakingTxs, nil
 }
 
 func protoStakingTxToStoredStakingTx(protoTx *proto.StakingTransaction) (*StoredStakingTransaction, error) {

@@ -9,19 +9,21 @@ import (
 
 	babylontypes "github.com/babylonlabs-io/babylon/types"
 	bbnbtclightclienttypes "github.com/babylonlabs-io/babylon/x/btclightclient/types"
+	"github.com/urfave/cli"
+	"go.uber.org/zap"
+
 	"github.com/babylonlabs-io/staking-indexer/btcclient"
 	"github.com/babylonlabs-io/staking-indexer/btcscanner"
 	"github.com/babylonlabs-io/staking-indexer/config"
 	"github.com/babylonlabs-io/staking-indexer/log"
 	"github.com/babylonlabs-io/staking-indexer/utils"
-	"github.com/urfave/cli"
-	"go.uber.org/zap"
 )
 
 const (
 	outputFileFlag        = "output"
 	withHeightFlag        = "with-height"
 	defaultOutputFileName = "btc-headers.json"
+	filePermission        = 0600
 )
 
 type HeadersState struct {
@@ -112,7 +114,7 @@ func btcHeaders(ctx *cli.Context) error {
 	}
 
 	outputFilePath := ctx.String(outputFileFlag)
-	if err := os.WriteFile(outputFilePath, bz, 0644); err != nil {
+	if err := os.WriteFile(outputFilePath, bz, filePermission); err != nil {
 		return fmt.Errorf("failed to write to output file %s: %w", outputFilePath, err)
 	}
 

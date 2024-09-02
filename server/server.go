@@ -65,7 +65,10 @@ func (s *Server) RunUntilShutdown(startHeight uint64) error {
 
 	defer func() {
 		s.logger.Info("Closing database...")
-		s.db.Close()
+		err := s.db.Close()
+		if err != nil {
+			s.logger.Fatal("error closing the database")
+		}
 		s.logger.Info("Database closed")
 	}()
 

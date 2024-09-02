@@ -78,7 +78,7 @@ func StartManagerWithNBlocks(t *testing.T, n int, startHeight uint64) *TestManag
 	require.NoError(t, err)
 
 	dirPath := filepath.Join(t.TempDir(), "sid", "e2etest")
-	err = os.MkdirAll(dirPath, 0755)
+	err = os.MkdirAll(dirPath, 0750)
 	require.NoError(t, err)
 
 	return StartWithBitcoinHandler(t, h, minerAddressDecoded, dirPath, startHeight)

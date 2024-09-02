@@ -65,7 +65,8 @@ func MakeTestBackend(t *testing.T) kvdb.Backend {
 	require.NoError(t, err)
 
 	t.Cleanup(func() {
-		backend.Close()
+		err := backend.Close()
+		require.NoError(t, err)
 	})
 
 	return backend

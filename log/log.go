@@ -15,6 +15,8 @@ import (
 	"github.com/babylonlabs-io/staking-indexer/utils"
 )
 
+const logFilePermission = 0600
+
 func NewRootLogger(format string, level string, w io.Writer) (*zap.Logger, error) {
 	cfg := zap.NewProductionEncoderConfig()
 	cfg.EncodeTime = func(ts time.Time, encoder zapcore.PrimitiveArrayEncoder) {
@@ -63,7 +65,7 @@ func NewRootLoggerWithFile(logFile string, level string) (*zap.Logger, error) {
 	if err := utils.MakeDirectory(filepath.Dir(logFile)); err != nil {
 		return nil, err
 	}
-	f, err := os.OpenFile(logFile, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0660)
+	f, err := os.OpenFile(filepath.Clean(logFile), os.O_CREATE|os.O_WRONLY|os.O_APPEND, logFilePermission)
 	if err != nil {
 		return nil, err
 	}

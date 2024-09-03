@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	sidcli "github.com/babylonlabs-io/staking-indexer/cmd/sid/cli"
 	"github.com/urfave/cli"
+
+	sidcli "github.com/babylonlabs-io/staking-indexer/cmd/sid/cli"
 )
 
 func fatal(err error) {
@@ -17,7 +18,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "sid"
 	app.Usage = "Staking Indexer Daemon (sid)."
-	app.Commands = append(app.Commands, sidcli.StartCommand, sidcli.InitCommand, sidcli.BtcHeaderCommand)
+	app.Commands = append(app.Commands, sidcli.StartCommand, sidcli.InitCommand, sidcli.BtcHeaderCommand, sidcli.DbDumpCmd)
 
 	if err := app.Run(os.Args); err != nil {
 		fatal(err)

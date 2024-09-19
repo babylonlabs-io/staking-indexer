@@ -7,15 +7,18 @@ on:
 
 jobs:
   lint_test:
-    uses: babylonlabs-io/.github/.github/workflows/reusable_go_lint_test.yml@v0.1.0
+    uses: babylonlabs-io/.github/.github/workflows/reusable_go_lint_test.yml@hiep/add-gosec
     with:
      install-dependencies-command: 'sudo apt-get install libzmq3-dev'
      run-unit-tests: true
      run-integration-tests: true
      run-lint: true
+     run-build: true
+     run-gosec: true
+     gosec-args: "-no-fail ./..."
      
   docker_pipeline:
-    uses: babylonlabs-io/.github/.github/workflows/reusable_docker_pipeline.yml@v0.1.0
+    uses: babylonlabs-io/.github/.github/workflows/reusable_docker_pipeline.yml@hiep/add-gosec
     secrets: inherit
     with:
      publish: false

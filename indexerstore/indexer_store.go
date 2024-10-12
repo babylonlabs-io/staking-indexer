@@ -191,6 +191,30 @@ func (is *IndexerStore) GetStakingTransaction(txHash *chainhash.Hash) (*StoredSt
 	return storedTx, nil
 }
 
+// ScanStoredStakingTransactions iterates through and exports all stored staking transactions
+func (is *IndexerStore) ScanStoredStakingTransactions(callback func(*StoredStakingTransaction) error) error {
+	return is.db.View(func(tx kvdb.RTx) error {
+		txBucket := tx.ReadBucket(stakingTxBucketName)
+		if txBucket == nil {
+			return ErrCorruptedTransactionsDb
+		}
+
+		return txBucket.ForEach(func(k, v []byte) error {
+			var storedTxProto proto.StakingTransaction
+			if err := pm.Unmarshal(v, &storedTxProto); err != nil {
+				return fmt.Errorf("failed to parse staking transaction: %w", err)
+			}
+
+			storedTx, err := protoStakingTxToStoredStakingTx(&storedTxProto)
+			if err != nil {
+				return fmt.Errorf("failed to convert staking transaction: %w", err)
+			}
+
+			return callback(storedTx)
+		})
+	}, func() {})
+}
+
 func protoStakingTxToStoredStakingTx(protoTx *proto.StakingTransaction) (*StoredStakingTransaction, error) {
 	var stakingTx wire.MsgTx
 	err := stakingTx.Deserialize(bytes.NewReader(protoTx.TransactionBytes))

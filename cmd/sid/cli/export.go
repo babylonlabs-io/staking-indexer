@@ -32,7 +32,7 @@ var ExportCommand = cli.Command{
 		cli.Uint64Flag{
 			Name:  "end-height",
 			Usage: "End block height for exported transactions",
-			Value: ^uint64(0),
+			Value: 0,
 		},
 		cli.StringFlag{
 			Name:  "output",

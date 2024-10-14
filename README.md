@@ -101,7 +101,7 @@ earliest `activation_height`. If the database is not empty, the user can specify
 a height that is not higher than `last_processed_height + 1` via `--start-height`.
 This is to ensure that no staking data will be missed.
 
-### 5. Exporting transactions
+### 5. Exporting staking transactions
 
 We can export the indexed staking transactions via the command:
 

@@ -103,7 +103,7 @@ This is to ensure that no staking data will be missed.
 
 ### 5. Exporting transactions
 
-We can export the indexed transactions via command:
+We can export the indexed staking transactions via the command:
 
 ```bash
 sid export --start-height <start-height> --end-height <end-height> --output transactions.csv

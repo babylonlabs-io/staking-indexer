@@ -32,7 +32,7 @@ Staking protocol and serves as the ground truth for the Bitcoin Staking system.
    Our [API service](https://github.com/babylonlabs-io/staking-api-service)
    exhibits how these events are utilized and presented.
 6. Monitoring the status of the service through [Prometheus metrics](./doc/metrics.md).
-7. Exporting transaction from indexer store to csv file.
+7. Exporting staking transactions from the indexer store to a CSV file.
 
 ## Usage
 

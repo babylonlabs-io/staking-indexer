@@ -110,9 +110,9 @@ func exportTransactions(c *cli.Context) error {
 				fmt.Sprintf("%d", tx.StakingValue),
 			}
 			return writer.Write(record)
-		} else {
-			return nil
-		}
+		} 
+		return nil
+		
 	})
 
 	if err != nil {

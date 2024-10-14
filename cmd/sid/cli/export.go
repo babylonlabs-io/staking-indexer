@@ -24,11 +24,6 @@ var ExportCommand = cli.Command{
 			Usage: "Path to the indexer home directory",
 			Value: config.DefaultHomeDir,
 		},
-		cli.StringFlag{
-			Name:  "output",
-			Usage: "Path to the export file",
-			Value: "transactions.csv",
-		},
 		cli.Uint64Flag{
 			Name:  "start-height",
 			Usage: "Start block height for exported transactions",
@@ -38,6 +33,11 @@ var ExportCommand = cli.Command{
 			Name:  "end-height",
 			Usage: "End block height for exported transactions",
 			Value: ^uint64(0),
+		},
+		cli.StringFlag{
+			Name:  "output",
+			Usage: "Path to the export file",
+			Value: "transactions.csv",
 		},
 	},
 	Action: exportTransactions,

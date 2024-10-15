@@ -109,10 +109,10 @@ func exportTransactions(c *cli.Context) error {
 
 	// Export data using ScanStoredStakingTransactions method
 	err = indexerStore.ScanStoredStakingTransactions(func(tx *indexerstore.StoredStakingTransaction) error {
-		fmt.Printf("Exporting transaction %s, InclusionHeight %d\n", tx.Tx.TxHash().String(), tx.InclusionHeight)
 
 		// Filter based on height parameters
 		if tx.InclusionHeight >= startHeight && tx.InclusionHeight < endHeight {
+			fmt.Printf("Exporting transaction %s, InclusionHeight %d\n", tx.Tx.TxHash().String(), tx.InclusionHeight)
 			record := []string{
 				tx.Tx.TxHash().String(),
 				fmt.Sprintf("%d", tx.StakingOutputIdx),

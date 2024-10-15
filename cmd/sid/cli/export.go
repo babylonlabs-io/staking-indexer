@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strconv"
 
 	"github.com/btcsuite/btcd/btcec/v2/schnorr"
 	"github.com/urfave/cli"
@@ -15,35 +16,50 @@ import (
 	"github.com/babylonlabs-io/staking-indexer/utils"
 )
 
+const (
+	defaultTxExportOutputFileName = "transactions.csv"
+)
+
 var ExportCommand = cli.Command{
-	Name:  "export",
-	Usage: "Export transactions from the indexer store to a CSV file based on block height.",
+	Name:      "export",
+	Usage:     "Export transactions from the indexer store to a CSV file based on block height.",
+	UsageText: fmt.Sprintf("export [start-height] [end-height] [--%s=path/to/%s]", defaultTxExportOutputFileName, outputFileFlag),
 	Flags: []cli.Flag{
 		cli.StringFlag{
 			Name:  homeFlag,
-			Usage: "Path to the indexer home directory",
+			Usage: "The path to the staking indexer home directory",
 			Value: config.DefaultHomeDir,
 		},
-		cli.Uint64Flag{
-			Name:  "start-height",
-			Usage: "Start block height for exported transactions",
-			Value: 0,
-		},
-		cli.Uint64Flag{
-			Name:  "end-height",
-			Usage: "End block height for exported transactions",
-			Value: 0,
-		},
 		cli.StringFlag{
-			Name:  "output",
+			Name:  outputFileFlag,
 			Usage: "Path to the export file",
-			Value: "transactions.csv",
+			Value: filepath.Join(config.DefaultHomeDir, defaultTxExportOutputFileName),
 		},
 	},
 	Action: exportTransactions,
 }
 
 func exportTransactions(c *cli.Context) error {
+	args := c.Args()
+	if len(args) != 2 {
+		return fmt.Errorf("not enough params, please specify [start-height] and [end-height]")
+	}
+
+	startHeightStr, endHeightStr := args[0], args[1]
+	startHeight, err := strconv.ParseUint(startHeightStr, 10, 64)
+	if err != nil {
+		return fmt.Errorf("unable to parse %s: %w", startHeightStr, err)
+	}
+
+	endHeight, err := strconv.ParseUint(endHeightStr, 10, 64)
+	if err != nil {
+		return fmt.Errorf("unable to parse %s: %w", endHeightStr, err)
+	}
+
+	if startHeight > endHeight {
+		return fmt.Errorf("the [start-height] %d should not be greater than the [end-height] %d", startHeight, endHeight)
+	}
+
 	homePath, err := filepath.Abs(c.String(homeFlag))
 	if err != nil {
 		return err
@@ -88,8 +104,6 @@ func exportTransactions(c *cli.Context) error {
 	}
 
 	// Get start height and end height parameters
-	startHeight := c.Uint64("start-height")
-	endHeight := c.Uint64("end-height")
 
 	fmt.Printf("Exporting transactions from height %d to %d\n", startHeight, endHeight)
 
@@ -110,9 +124,9 @@ func exportTransactions(c *cli.Context) error {
 				fmt.Sprintf("%d", tx.StakingValue),
 			}
 			return writer.Write(record)
-		} 
+		}
 		return nil
-		
+
 	})
 
 	if err != nil {

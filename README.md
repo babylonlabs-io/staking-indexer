@@ -109,11 +109,7 @@ We can export the indexed staking transactions via the command:
 sid export <start-height> <end-height> --output transactions.csv
 ```
 
-| Transaction Hash | Staking Output Index | Inclusion Height | Staker Public Key | Staking Time | Finality Provider Public Key | Is Overflow | Staking Value |
-|------------------|----------------------|------------------|-------------------|--------------|------------------------------|-------------|---------------|
-| 1b42ce46130a1d4b3bdd56b5cb325976851af1ab76951565aa4858c7d16dad00 | 0 | 864790 | 139f4e3ec192e83b9c6789ff644261b8fa5d7b716d1813bee744e3472f264d99 | 64000 | fa7496f63a857d894aa393767325bf6f84560e9141f4ec54496c50f546f48bfb | false | 1905000 |
-| 3ddfb76b9971b786fc798a98f8fc5edc42a074c47ef28df812a389c16536b401 | 0 | 864790 | b18ac73a57e6d3413284d1c91c14744464d71f19397c8ab053bc99c1ed96cafe | 64000 | bb0bceda25d82f10a69feca9c076d85f61d750c9a481b8105d8389325538fdd1 | false | 500000 |
-| 967939f50dfbef960a40422843f5e3d749ceb0fba7a94542028f0dfb3e95e501 | 0 | 864790 | d7c9ab7d619ada29535baec2ff77308b9014ef1c285a09fb175aa1c3e6d73f90 | 64000 | 68db13ba45241bcc1db1e63d998d78d9fce4b3f42772ef355e007a1105100476 | false | 500000000 |
+![export](./doc/staking_export.png)
 
 ### Tests
 

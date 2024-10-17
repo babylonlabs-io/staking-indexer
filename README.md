@@ -32,6 +32,7 @@ Staking protocol and serves as the ground truth for the Bitcoin Staking system.
    Our [API service](https://github.com/babylonlabs-io/staking-api-service)
    exhibits how these events are utilized and presented.
 6. Monitoring the status of the service through [Prometheus metrics](./doc/metrics.md).
+7. Exporting staking transactions from the indexer store to a CSV file.
 
 ## Usage
 
@@ -99,6 +100,16 @@ Note that if the database is empty, the indexer will strictly start from the
 earliest `activation_height`. If the database is not empty, the user can specify
 a height that is not higher than `last_processed_height + 1` via `--start-height`.
 This is to ensure that no staking data will be missed.
+
+### 5. Exporting staking transactions
+
+We can export the indexed staking transactions via the command:
+
+```bash
+sid export <start-height> <end-height> --output transactions.csv
+```
+
+![export](./doc/staking_export.png)
 
 ### Tests
 

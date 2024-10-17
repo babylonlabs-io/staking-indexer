@@ -18,7 +18,7 @@ jobs:
      gosec-args: "-no-fail ./..."
      
   docker_pipeline:
-    uses: babylonlabs-io/.github/.github/workflows/reusable_docker_pipeline.yml@v0.6.0
+    uses: babylonlabs-io/.github/.github/workflows/reusable_docker_pipeline.yml@v0.8.0
     secrets: inherit
     with:
      publish: false

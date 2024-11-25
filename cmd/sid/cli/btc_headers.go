@@ -143,7 +143,7 @@ func BtcHeaderInfoList(btcClient btcscanner.Client, fromBlk, toBlk uint64, withH
 		}
 
 		if withHeight {
-			info.Height = blkHeight
+			info.Height = uint32(blkHeight)
 		}
 
 		btcHeaders = append(btcHeaders, info)

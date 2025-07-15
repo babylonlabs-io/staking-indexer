@@ -1,4 +1,10 @@
+
 # Staking Indexer
+
+> **⚠️ WARNING: This repository is archived**  
+> This service has been moved to the new [Babylon BTC Staking Indexer](https://github.com/babylonlabs-io/babylon-staking-indexer) repository. Please use the new repository for all future development and deployments.
+
+---
 
 The staking indexer is a tool that extracts BTC staking relevant data from the
 Bitcoin blockchain, ensures that it follows the pre-requisites for a valid
